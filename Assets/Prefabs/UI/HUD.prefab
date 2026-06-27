@@ -208,6 +208,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ed36f7a2d9840bdaf3644628a66c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  techTreeRoot: {fileID: 11400000, guid: 232f763570d554ec787feb2330f83009, type: 2}
+  unitsPanel: {fileID: 7759676540353689963}
+  buildingsPanel: {fileID: 5933970174477100410}
+  techsPanel: {fileID: 1255153722865836423}
+  prefabTechButton: {fileID: -7121100763516987033, guid: 2a3e43d341b264fcba8f0b8aea5ede89, type: 3}
 --- !u!1 &2706084012719531451
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,8 +310,8 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
-  m_fontSizeMax: 0
-  m_fontStyle: 0
+  m_fontSizeMax: 36
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -441,9 +446,9 @@ MonoBehaviour:
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
-  m_fontSizeMin: 0
-  m_fontSizeMax: 0
-  m_fontStyle: 0
+  m_fontSizeMin: 24
+  m_fontSizeMax: 36
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -945,7 +950,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
