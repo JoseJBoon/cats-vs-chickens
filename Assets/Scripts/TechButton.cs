@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class TechButton : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI text;
-    // Reference to components for Icons (Customization)
+    [SerializeField] private Image icon;
+
     
     private readonly HashSet<Building> _buildings = new ();
     private TechTreeNode _node;
@@ -30,6 +32,7 @@ public class TechButton : MonoBehaviour
 
     public void Initialize(TechTreeNode node)
     {
+        icon.sprite = node.Icon;
         text.text = node.Name;
         _node = node;
         gameObject.SetActive(node.Unlocked);
