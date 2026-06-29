@@ -10,17 +10,17 @@ public class Placement : MonoBehaviour
         mainCamera = Camera.main;
     }
 
-    // private void Update()
-    // {
-    //     Vector2 mousePosition = Input.mousePosition;
-    //     RaycastHit hitInfo;
-    //     Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-    //     if (!Physics.Raycast(ray, out hitInfo))
-    //     {
-    //         return;
-    //     }
+    private void Update()
+    {
+        Vector2 mousePosition = Input.mousePosition;
+        RaycastHit hitInfo;
+        Ray ray = mainCamera.ScreenPointToRay(mousePosition);
+        if (!Physics.Raycast(ray, out hitInfo))
+        {
+            return;
+        }
 
-    //     transform.position = hitInfo.point;
+        transform.position = hitInfo.point;
 
-    // }
+    }
 }
