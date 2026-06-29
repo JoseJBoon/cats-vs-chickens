@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b11e88cffc284a29b6b5408e3586e05, type: 3}
+  m_Name: House
+  m_EditorClassIdentifier: Assembly-CSharp::UnitTemplate
+  <Name>k__BackingField: House
+  <HitPoints>k__BackingField: 2000
+  <AttackSpeed>k__BackingField: 0
+  <Damage>k__BackingField: 0
+  <DamageOverTime>k__BackingField: {x: 0, y: 0}
+  <Range>k__BackingField: 0
+  <AbilityRange>k__BackingField: 0
+  <Size>k__BackingField: {x: 15, y: 15}
+  <MovementSpeed>k__BackingField: 0
+  <Acceleration>k__BackingField: 0
+  <Cost>k__BackingField: 2500
