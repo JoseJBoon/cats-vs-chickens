@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d67172b077ba0453abbc8bd22da010bd, type: 3}
   m_Name: Cat Barracks
   m_EditorClassIdentifier: Assembly-CSharp::TechTreeNode
-  <Name>k__BackingField: TechTreeNode name
+  <Name>k__BackingField: Barracks
   <Unlocked>k__BackingField: 0
-  <Nodes>k__BackingField: []
+  <Nodes>k__BackingField:
+  - {fileID: 11400000, guid: 0678aab1072ee4384b1ef7add2abb7bf, type: 2}
+  - {fileID: 11400000, guid: e2dfb1cbc4ff14c3e8267c4d7d2f4987, type: 2}
+  <Production>k__BackingField:
+  - {fileID: 11400000, guid: 0678aab1072ee4384b1ef7add2abb7bf, type: 2}
   <Icon>k__BackingField: {fileID: 0}
   <BuildTime>k__BackingField: 1
   <Prefab>k__BackingField: {fileID: 0}
-  <Category>k__BackingField: 0
+  <Category>k__BackingField: 1

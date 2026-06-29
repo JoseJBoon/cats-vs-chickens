@@ -13,6 +13,8 @@ public class TechButton : MonoBehaviour
     public delegate void OnTechHandler(TechTreeNode node);
     public event OnTechHandler OnTechLost;
     public event OnTechHandler OnTechAcquired;
+    
+    public bool IsUnlocked { get; private set; }
 
     private void Awake()
     {
@@ -36,12 +38,10 @@ public class TechButton : MonoBehaviour
     private void AddBuilding(Building building, TechTreeNode node)
     {
         if (_node != node)
-        {
             return;
-        }
         
         _buildings.Add(building);
-        if (_buildings.Count > 0)
+        if (_buildings.Count == 1)
         {
             OnTechAcquired?.Invoke(node);
         }
@@ -50,15 +50,18 @@ public class TechButton : MonoBehaviour
     private void RemoveBuilding(Building building, TechTreeNode node)
     {
         if (_node != node)
-        {
             return;
-        }
         
         _buildings.Remove(building);
         if (_buildings.Count == 0)
         {
             OnTechLost?.Invoke(node);
         }
+    }
+
+    public void Unlock()
+    {
+        IsUnlocked = true;
     }
 
     public void Produce()

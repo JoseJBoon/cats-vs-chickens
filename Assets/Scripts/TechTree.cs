@@ -30,15 +30,22 @@ public class TechTree : MonoBehaviour
     {
         foreach (var techNode in node.Nodes)
         {
+            _techTree[techNode].Unlock();
             _techTree[techNode].gameObject.SetActive(true);
+        }
+        
+        foreach (var productionNode in node.Production)
+        {
+            if (_techTree[productionNode].IsUnlocked)
+                _techTree[productionNode].gameObject.SetActive(true);
         }
     }
 
     private void OnTechLost(TechTreeNode node)
     {
-        foreach (var techNode in node.Nodes)
+        foreach (var productionNodes in node.Production)
         {
-            _techTree[techNode].gameObject.SetActive(false);
+            _techTree[productionNodes].gameObject.SetActive(false);
         }
     }
 
