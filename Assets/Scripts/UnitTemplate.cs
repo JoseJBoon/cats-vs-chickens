@@ -15,6 +15,4 @@ public class UnitTemplate : ScriptableObject
     [field: SerializeField] public float MovementSpeed { get; private set; } = 0.0f;
     [field: SerializeField] public float Acceleration { get; private set; } = 0.0f;
     [field: SerializeField] public float Cost { get; private set; } = 1.0f;
-    [field: SerializeField] private NavMeshAgent navMeshAgent;
-
 }

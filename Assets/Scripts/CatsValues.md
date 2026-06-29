@@ -32,7 +32,7 @@ Name: LaserCat
 HitPoints: 150.0
 AttackSpeed: 1.25
 Damage: 5.0
-DamageOverTime: 1.0, 5.0
+DamageOverTime: 0.0, 0.0
 Range: 2.0
 AbilityRange: 10.0
 MovementSpeed: 3.0
