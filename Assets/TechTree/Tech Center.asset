@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d67172b077ba0453abbc8bd22da010bd, type: 3}
+  m_Name: Tech Center
+  m_EditorClassIdentifier: Assembly-CSharp::TechTreeNode
+  <Name>k__BackingField: Tech Center
+  <Unlocked>k__BackingField: 0
+  <Nodes>k__BackingField:
+  - {fileID: 11400000, guid: 0678aab1072ee4384b1ef7add2abb7bf, type: 2}
+  <Production>k__BackingField: []
+  <Icon>k__BackingField: {fileID: 21300000, guid: a389e0a378cd8fb47b604da00059de7d, type: 3}
+  <BuildTime>k__BackingField: 1
+  <Prefab>k__BackingField: {fileID: 0}
+  <Category>k__BackingField: 1

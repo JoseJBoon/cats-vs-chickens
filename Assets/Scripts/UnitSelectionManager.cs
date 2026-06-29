@@ -51,7 +51,7 @@ public class UnitSelectionManager : MonoBehaviour
 			}
 		}
 
-		if (Input.GetMouseButtonDown(1) && listSelectedUnits.Count > 0)
+		if (Input.GetMouseButtonUp(1) && listSelectedUnits.Count > 0)
 		{
 			RaycastHit hit;
 			Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -59,15 +59,16 @@ public class UnitSelectionManager : MonoBehaviour
 			// check if we are hitting a clickable object
 			if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
 			{
-				groundMarker.transform.position = hit.point + Vector3.up * 0.1f;
-				// disable then activate is some trick for animations?
+				Vector3 targetPosition = hit.point;
+
+				groundMarker.transform.position = targetPosition + Vector3.up * 0.1f;
 				groundMarker.SetActive(false);
 				groundMarker.SetActive(true);
+
+				MoveSelectedUnitsTo(targetPosition);
 			}
 		}
 	}
-
-	
 
 	private void MultiSelect(GameObject unit)
 	{
@@ -128,5 +129,27 @@ public class UnitSelectionManager : MonoBehaviour
 			// enable unit movement
 		}
 	}
+	private Vector3 GetWorldMousePos()
+	{
+		Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+		if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, ground) == true)
+		{
+			return hitInfo.point;
+		}
+		return Vector3.zero;
+	}
+	private void MoveSelectedUnitsTo(Vector3 targetPosition)
+	{
+		Debug.Log("Moving selected units");
+		foreach (GameObject unit in listSelectedUnits)
+		{
+			UnitMovement movement = unit.GetComponent<UnitMovement>();
+			if (movement != null)
+			{
+					movement.MoveToDestination(targetPosition);
+			}
+		}
+	}
 }
+
 
