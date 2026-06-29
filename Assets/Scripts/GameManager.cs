@@ -5,16 +5,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-	public static GameManager instance;
+	public static GameManager Instance;
 
 	[SerializeField]
 	private List<Unit> allUnits;
 	[SerializeField]
 	private LayerMask groundLayer;
 
+	private Camera _mainCamera;
+
+	private void Awake()
+	{
+		_mainCamera = Camera.main;
+	}
+
 	private void Start()
 	{
-		instance = this;
+		Instance = this;
 	}
 	public void RegisterUnit(Unit newUnit)
 	{
@@ -39,13 +46,11 @@ public class GameManager : MonoBehaviour
 
 	private Vector3 GetWorldMousePos()
 	{
-		Vector3 position = Vector3.zero;
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+		Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
 		if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, groundLayer) == true)
 		{
-			position = hitInfo.point;
+			return hitInfo.point;
 		}
-		return position;
+		return Vector3.zero;
 	}
 }
