@@ -19,6 +19,7 @@ MonoBehaviour:
   <DamageOverTime>k__BackingField: {x: 1, y: 5}
   <Range>k__BackingField: 2
   <AbilityRange>k__BackingField: 0
+  <Size>k__BackingField: {x: 2, y: 2}
   <MovementSpeed>k__BackingField: 5
   <Acceleration>k__BackingField: 2
   <Cost>k__BackingField: 150

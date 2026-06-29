@@ -12,6 +12,7 @@ public class UnitTemplate : ScriptableObject
     [field: SerializeField] public Vector2 DamageOverTime { get; private set; } = new Vector2(1.0f, 1.0f);	// { Damage, duration }
     [field: SerializeField] public float Range { get; private set; } = 0.0f;
     [field: SerializeField] public float AbilityRange { get; private set; } = 0.0f;
+    [field: SerializeField] public Vector2Int Size { get; private set; } = new Vector2Int(1, 1);
     [field: SerializeField] public float MovementSpeed { get; private set; } = 0.0f;
     [field: SerializeField] public float Acceleration { get; private set; } = 0.0f;
     [field: SerializeField] public float Cost { get; private set; } = 1.0f;
