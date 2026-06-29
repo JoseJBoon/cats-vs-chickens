@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d67172b077ba0453abbc8bd22da010bd, type: 3}
   m_Name: Regular Cat
   m_EditorClassIdentifier: Assembly-CSharp::TechTreeNode
-  _name: Regular Cat
-  _unlocked: 0
-  _nodes: []
-  _icon: {fileID: 0}
-  _buildTime: 0
-  _prefab: {fileID: 0}
+  <Name>k__BackingField: Regular Cat
+  <Unlocked>k__BackingField: 0
+  <Nodes>k__BackingField: []
+  <Production>k__BackingField: []
+  <Icon>k__BackingField: {fileID: 21300000, guid: 376ae6142568740438956fee58e07197, type: 3}
+  <BuildTime>k__BackingField: 1
+  <Prefab>k__BackingField: {fileID: 0}
+  <Category>k__BackingField: 0

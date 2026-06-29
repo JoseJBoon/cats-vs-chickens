@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d67172b077ba0453abbc8bd22da010bd, type: 3}
-  m_Name: Cat Tech Tree
+  m_Name: Tech Center
   m_EditorClassIdentifier: Assembly-CSharp::TechTreeNode
-  <Name>k__BackingField: Main
+  <Name>k__BackingField: Tech Center
   <Unlocked>k__BackingField: 0
   <Nodes>k__BackingField:
-  - {fileID: 11400000, guid: 26f18fe154a474aaeacdee16a1e1b02a, type: 2}
-  <Production>k__BackingField:
-  - {fileID: 11400000, guid: 26f18fe154a474aaeacdee16a1e1b02a, type: 2}
-  - {fileID: 11400000, guid: e2dfb1cbc4ff14c3e8267c4d7d2f4987, type: 2}
-  <Icon>k__BackingField: {fileID: 21300000, guid: e7385c27af3e9524cb23f253deb07d74, type: 3}
+  - {fileID: 11400000, guid: 0678aab1072ee4384b1ef7add2abb7bf, type: 2}
+  <Production>k__BackingField: []
+  <Icon>k__BackingField: {fileID: 21300000, guid: a389e0a378cd8fb47b604da00059de7d, type: 3}
   <BuildTime>k__BackingField: 1
   <Prefab>k__BackingField: {fileID: 0}
   <Category>k__BackingField: 1
