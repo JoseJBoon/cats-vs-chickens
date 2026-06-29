@@ -19,20 +19,15 @@ public class Building : MonoBehaviour
         OnBuildingDestroyed?.Invoke(this, node);
     }
 
-    public void Initialize(TechTreeNode techNode)
+    public void Produce(TechButton from, GameObject techPrefab)
     {
-        node = techNode;
-    }
-
-    public void Produce(GameObject tech)
-    {
-        if (tech)
+        if (!from || !techPrefab) // TODO: Should never be NULL
         {
-            Debug.Log($"Produce {tech.name}");
+            Debug.Log($"{name} WANTS TO BUILD!!!!");
+            return;
         }
-        else
-        {
-            Debug.Log($"Produce WHAT???");
-        }
+        Debug.Log($"{from.name} wants to produce {techPrefab.name}");
+        
+        // Spawn Unit; Unlock Tech; Start Building placement
     }
 }

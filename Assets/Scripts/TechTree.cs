@@ -78,6 +78,11 @@ public class TechTree : MonoBehaviour
         {
             BuildTechTree(childNode);
         }
+        
+        foreach (var producer in node.Production)
+        {
+            _techTree[producer].RefToBuildings = instance.Buildings;
+        }
         _techTree.Add(node, instance);
     }
     

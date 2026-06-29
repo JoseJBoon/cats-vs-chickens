@@ -17,6 +17,8 @@ public class TechButton : MonoBehaviour
     
     public bool IsUnlocked { get; private set; }
     public bool IsConstructable { get; set; }
+    public HashSet<Building> Buildings => _buildings;
+    public HashSet<Building> RefToBuildings { get; set; }
 
     private void Awake()
     {
@@ -69,9 +71,19 @@ public class TechButton : MonoBehaviour
 
     public void Produce()
     {
-        foreach (var building in _buildings)
+        // Start producing
+        // Either auto send to production building or keep active
+        // 
+        
+        // TODO: Produce from lowest queue
+        foreach (var building in RefToBuildings)
         {
-            building.Produce(_node.Prefab);
+            building.Produce(this, _node.Prefab);
+            break;
         }
+        // TODO: Lock button; Unlock button on complete;
     }
+    
+    // state: idle, producing, ready, cancel, 
+    
 }
