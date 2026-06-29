@@ -59,7 +59,7 @@ public class UnitSelectionManager : MonoBehaviour
 			// check if we are hitting a clickable object
 			if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
 			{
-				groundMarker.transform.position = hit.point;
+				groundMarker.transform.position = hit.point + Vector3.up * 0.1f;
 				// disable then activate is some trick for animations?
 				groundMarker.SetActive(false);
 				groundMarker.SetActive(true);
