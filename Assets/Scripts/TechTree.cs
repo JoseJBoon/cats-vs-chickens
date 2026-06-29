@@ -31,21 +31,24 @@ public class TechTree : MonoBehaviour
         foreach (var techNode in node.Nodes)
         {
             _techTree[techNode].Unlock();
-            _techTree[techNode].gameObject.SetActive(true);
+            if (_techTree[techNode].IsConstructable)
+                _techTree[techNode].gameObject.SetActive(true);
         }
         
         foreach (var productionNode in node.Production)
         {
             if (_techTree[productionNode].IsUnlocked)
                 _techTree[productionNode].gameObject.SetActive(true);
+            _techTree[productionNode].IsConstructable = true;
         }
     }
 
     private void OnTechLost(TechTreeNode node)
     {
-        foreach (var productionNodes in node.Production)
+        foreach (var productionNode in node.Production)
         {
-            _techTree[productionNodes].gameObject.SetActive(false);
+            _techTree[productionNode].gameObject.SetActive(false);
+            _techTree[productionNode].IsConstructable = false;
         }
     }
 

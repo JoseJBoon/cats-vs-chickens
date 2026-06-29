@@ -7,7 +7,6 @@ public class TechButton : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Image icon;
-
     
     private readonly HashSet<Building> _buildings = new ();
     private TechTreeNode _node;
@@ -17,6 +16,7 @@ public class TechButton : MonoBehaviour
     public event OnTechHandler OnTechAcquired;
     
     public bool IsUnlocked { get; private set; }
+    public bool IsConstructable { get; set; }
 
     private void Awake()
     {

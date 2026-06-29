@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e2dfb1cbc4ff14c3e8267c4d7d2f4987, type: 2}
   <Production>k__BackingField:
   - {fileID: 11400000, guid: 0678aab1072ee4384b1ef7add2abb7bf, type: 2}
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 17aada8c818adc842a5fb041ddebd325, type: 3}
   <BuildTime>k__BackingField: 1
   <Prefab>k__BackingField: {fileID: 0}
   <Category>k__BackingField: 1
