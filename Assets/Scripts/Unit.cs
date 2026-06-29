@@ -11,6 +11,8 @@ public class Unit : MonoBehaviour
 	private NavMeshAgent navMeshAgent;
 	[SerializeField]
 	private Animator animator;
+	[SerializeField]
+	private UnitTemplate unitStats;
 	
 	private bool isMoving = false;
 
