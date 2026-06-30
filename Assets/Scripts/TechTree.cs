@@ -9,7 +9,8 @@ public class TechTree : MonoBehaviour
     [SerializeField] private RectTransform buildingsPanel;
     [SerializeField] private RectTransform techsPanel;
     [SerializeField] private TechButton prefabTechButton;
-
+    [SerializeField] private BuildBuilding buildBuilding;
+    
     private readonly Dictionary<TechTreeNode, TechButton> _techTree = new ();
     
     void Awake()
@@ -66,6 +67,8 @@ public class TechTree : MonoBehaviour
                 break;
             case Category.Buildings:
                 instance.transform.SetParent(buildingsPanel);
+                instance.onLeftClick.AddListener(buildBuilding.OnBuildAction);
+                instance.onRightClick.AddListener(buildBuilding.OnCancelBuildAction);
                 break;
             case Category.Research:
                 instance.transform.SetParent(techsPanel);

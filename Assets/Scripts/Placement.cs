@@ -1,19 +1,27 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(SpaceChecker))]
 public class Placement : MonoBehaviour
 {
-    [SerializeField] private Transform cursor;
-    [SerializeField] private LayerMask cursorLayerMask;
+    public delegate void OnPlacementHandler();
     
+    [SerializeField] private LayerMask cursorLayerMask;
+    [SerializeField] private BoxHighlight boxHighLight;
+    
+    private Transform _cursor;
     private Camera _mainCamera;
     private SpaceChecker _spaceChecker;
-    private Transform _building;
+    private Transform _buildingPrefab;
+
+    public OnPlacementHandler OnBuildingPlaced;
+    public OnPlacementHandler OnBuildingCancel;
     
     private void Start()
     {
+        _cursor = transform;
         _mainCamera = Camera.main;
-        _spaceChecker = GetComponentInChildren<SpaceChecker>();
+        _spaceChecker = GetComponent<SpaceChecker>();
     }
 
     private void Update()
@@ -24,19 +32,17 @@ public class Placement : MonoBehaviour
 
     private void MouseInteraction()
     {
-        if (!_building)
+        if (!_buildingPrefab)
             return;
         
-        if (Input.GetMouseButtonDown(0) && _spaceChecker.IsFreeSpace)
+        if (Input.GetMouseButtonDown(0))
         {
-            _building.SetParent(null);
-            _building.position = SnapPosition(_building.position);
+            if(_spaceChecker.IsFreeSpace)
+                PlaceBuilding();
         }
-
-        if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("Cancel!!!");
-            // Clear selection (give back to UI)
+            CancelBuilding();
         }
     }
 
@@ -48,7 +54,7 @@ public class Placement : MonoBehaviour
         {
             return;
         }
-        cursor.position = SnapPosition(hitInfo.point);
+        _cursor.position = SnapPosition(hitInfo.point);
     }
 
     private Vector3 SnapPosition(Vector3 position)
@@ -60,13 +66,21 @@ public class Placement : MonoBehaviour
 
     public void AssignBuilding(Transform building)
     {
-        _building = building;
-        cursor.gameObject.SetActive(true);
+        boxHighLight.gameObject.SetActive(true);
+        boxHighLight.Resize(building.GetComponentInChildren<MeshRenderer>().bounds);
+        _buildingPrefab = building;
     }
 
-    public void CancelBuilding()
+    private void PlaceBuilding()
     {
-        cursor.gameObject.SetActive(false);
-        // return building
+        var instance = Instantiate(_buildingPrefab);
+        instance.position = SnapPosition(_cursor.position);
+        OnBuildingPlaced?.Invoke();
+    }
+
+    private void CancelBuilding()
+    {
+        boxHighLight.gameObject.SetActive(false);
+        OnBuildingCancel?.Invoke();
     }
 }
