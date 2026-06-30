@@ -18,7 +18,7 @@ public class Unit : MonoBehaviour
 	{
 		if (UnitSelectionManager.Instance != null)
 		{
-				UnitSelectionManager.Instance.listAllUnits.Remove(gameObject);
+			UnitSelectionManager.Instance.listAllUnits.Remove(gameObject);
 		}
 	}
 }
