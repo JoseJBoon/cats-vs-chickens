@@ -29,10 +29,11 @@ public class UnitMovement : MonoBehaviour
 		Vector3 nextPosition = navMeshAgent.nextPosition;
 		if (isMoving == true && navMeshAgent.pathPending == false)
 		{
-			if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance || nextPosition == prevPosition)
+			if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance && nextPosition == prevPosition)
 			{
 				isMoving = false;
 				animator.SetBool(IsWalkingKey, false);
+				// navMeshAgent.isStopped = true;
 			}
 		}
 		prevPosition = nextPosition;
