@@ -11,14 +11,14 @@ public class RTSCameraController : MonoBehaviour
 	private Vector3 _cameraPosition;
 	[Header("Map Boundaries")]
 	public Vector2 _mapBounds = new Vector2(-50,50);
-	public int mapBoundsOffsetLeft = 30;
-	public int mapBoundsOffsetRight = 40;
+	public int mapBoundsOffsetLeft = 12;
+	public int mapBoundsOffsetRight = 12;
 	public int mapBoundsOffsetTop = 40;
-	public int mapBoundsOffsetBottom = 40;
+	public int mapBoundsOffsetBottom = 14;
 	[Header("Camera Settings")]
 	public float cameraSpeed = 20;
-	public int mouseSpeed = 20;
-	public float dragSpeed = 20;
+	public int mouseSpeed = 30;
+	public float dragSpeed = 30;
 	public float edgeBoundary = 50;
 	private int _screenHeight;
 	private int _screenWidth;
