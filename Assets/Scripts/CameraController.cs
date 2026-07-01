@@ -1,225 +1,121 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class RTSCameraController : MonoBehaviour
 {
-    public static RTSCameraController instance;
+	private Vector2 _dragOrigin;
+	private bool isDragging;
+	private Vector3 _cameraPosition;
+	[Header("Map Boundaries")]
+	public Vector2 _mapBounds = new Vector2(-50,50);
+	public int mapBoundsOffsetLeft = 12;
+	public int mapBoundsOffsetRight = 12;
+	public int mapBoundsOffsetTop = 40;
+	public int mapBoundsOffsetBottom = 14;
+	[Header("Camera Settings")]
+	public float cameraSpeed = 20;
+	public int mouseSpeed = 30;
+	public float dragSpeed = 30;
+	public float edgeBoundary = 50;
+	private int _screenHeight;
+	private int _screenWidth;
 
-    // If we want to select an item to follow, inside the item script add:
-    // public void OnMouseDown(){
-    //   CameraController.instance.followTransform = transform;
-    // }
+	void Start()
+	{
+		_cameraPosition = this.transform.position;
+		_screenHeight = Screen.height;
+		_screenWidth = Screen.width;
+		Cursor.lockState = CursorLockMode.Confined;
+	}
 
-    [Header("General")]
-    [SerializeField] Transform cameraTransform;
-    public Transform followTransform;
-    Vector3 newPosition;
-    Vector3 dragStartPosition;
-    Vector3 dragCurrentPosition;
+private void DragMovement()
+	{
+		if (!isDragging)
+		{
+			isDragging = true;
 
-    [Header("Optional Functionality")]
-    [SerializeField] bool moveWithKeyboad;
-    [SerializeField] bool moveWithEdgeScrolling;
-    [SerializeField] bool moveWithMouseDrag;
+			_dragOrigin = Input.mousePosition;
+		}
+		else
+		{	
+			Vector2 newOrigin = Input.mousePosition;
+			Vector2 direction = newOrigin - _dragOrigin;
+			direction.Normalize();
 
-    [Header("Keyboard Movement")]
-    [SerializeField] float fastSpeed = 0.05f;
-    [SerializeField] float normalSpeed = 0.01f;
-    [SerializeField] float movementSensitivity = 1f; // Hardcoded Sensitivity
-    float movementSpeed;
+			_cameraPosition.x += direction.x * dragSpeed * Time.deltaTime;
+			_cameraPosition.z += direction.y * dragSpeed * Time.deltaTime;
+		}
 
-    [Header("Edge Scrolling Movement")]
-    [SerializeField] float edgeSize = 50f;
-    bool isCursorSet = false;
-    public Texture2D cursorArrowUp;
-    public Texture2D cursorArrowDown;
-    public Texture2D cursorArrowLeft;
-    public Texture2D cursorArrowRight;
+	}
+		
+		
+	void Update()
+	{
+		if (Input.GetMouseButton(2))
+		{
+			// Scroll wheel movement
+			DragMovement();
+		}
+		else
+		{
+			isDragging = false;
 
-    CursorArrow currentCursor = CursorArrow.DEFAULT;
-    enum CursorArrow
-    {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-        DEFAULT
-    }
+			// WASD Keyboard Movement
+			KeyboardMovement();
 
-    private void Start()
-    {
-        instance = this;
+			// Edge Scrolling with Mouse
+			MouseEdgeScroll();	
+		}
+			CheckCameraPosition();
+			this.transform.position = _cameraPosition;
+	}
 
-        newPosition = transform.position;
+	void KeyboardMovement()
+	{
+		if (Input.GetKey(KeyCode.W))
+		{
+			_cameraPosition.z += cameraSpeed * Time.deltaTime;
+		}
+		if (Input.GetKey(KeyCode.S))
+		{
+			_cameraPosition.z -= cameraSpeed * Time.deltaTime;		
+		}
+		if (Input.GetKey(KeyCode.A))
+		{
+			_cameraPosition.x -= cameraSpeed * Time.deltaTime;
+		}
+		if (Input.GetKey(KeyCode.D))
+		{
+			_cameraPosition.x += cameraSpeed * Time.deltaTime;		
+		}
+	}
 
-        movementSpeed = normalSpeed;
-    }
-
-    private void Update()
-    {
-        // Allow Camera to follow Target
-        if (followTransform != null)
-        {
-            transform.position = followTransform.position;
-        }
-        // Let us control Camera
-        else
-        {
-            HandleCameraMovement();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            followTransform = null;
-        }
-    }
-
-    void HandleCameraMovement()
-    {
-        // Mouse Drag
-        if (moveWithMouseDrag)
-        {
-            HandleMouseDragInput();
-        }
-
-        // Keyboard Control
-        if (moveWithKeyboad)
-        {
-            if (Input.GetKey(KeyCode.LeftCommand))
-            {
-                movementSpeed = fastSpeed;
-            }
-            else
-            {
-                movementSpeed = normalSpeed;
-            }
-
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-            {
-                newPosition += (transform.forward * movementSpeed);
-            }
-            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            {
-                newPosition += (transform.forward * -movementSpeed);
-            }
-            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-            {
-                newPosition += (transform.right * movementSpeed);
-            }
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-            {
-                newPosition += (transform.right * -movementSpeed);
-            }
-        }
-
-        // Edge Scrolling
-        if (moveWithEdgeScrolling)
-        {
-
-            // Move Right
-            if (Input.mousePosition.x > Screen.width - edgeSize)
-            {
-                newPosition += (transform.right * movementSpeed);
-                ChangeCursor(CursorArrow.RIGHT);
-                isCursorSet = true;
-            }
-
-            // Move Left
-            else if (Input.mousePosition.x < edgeSize)
-            {
-                newPosition += (transform.right * -movementSpeed);
-                ChangeCursor(CursorArrow.LEFT);
-                isCursorSet = true;
-            }
-
-            // Move Up
-            else if (Input.mousePosition.y > Screen.height - edgeSize)
-            {
-                newPosition += (transform.forward * movementSpeed);
-                ChangeCursor(CursorArrow.UP);
-                isCursorSet = true;
-            }
-
-            // Move Down
-            else if (Input.mousePosition.y < edgeSize)
-            {
-                newPosition += (transform.forward * -movementSpeed);
-                ChangeCursor(CursorArrow.DOWN);
-                isCursorSet = true;
-            }
-            else
-            {
-                if (isCursorSet)
-                {
-                    ChangeCursor(CursorArrow.DEFAULT);
-                    isCursorSet = false;
-                }
-            }
-        }
-
-        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementSensitivity);
-
-        Cursor.lockState = CursorLockMode.Confined; // If we have an extra monitor we don't want to exit screen bounds
-    }
-
-    private void ChangeCursor(CursorArrow newCursor)
-    {
-        // Only change cursor if its not the same cursor
-        if (currentCursor != newCursor)
-        {
-            switch (newCursor)
-            {
-                case CursorArrow.UP:
-                    Cursor.SetCursor(cursorArrowUp, Vector2.zero, CursorMode.Auto);
-                    break;
-                case CursorArrow.DOWN:
-                    Cursor.SetCursor(cursorArrowDown, new Vector2(cursorArrowDown.width, cursorArrowDown.height), CursorMode.Auto); // So the Cursor will stay inside view
-                    break;
-                case CursorArrow.LEFT:
-                    Cursor.SetCursor(cursorArrowLeft, Vector2.zero, CursorMode.Auto);
-                    break;
-                case CursorArrow.RIGHT:
-                    Cursor.SetCursor(cursorArrowRight, new Vector2(cursorArrowRight.width, cursorArrowRight.height), CursorMode.Auto); // So the Cursor will stay inside view
-                    break;
-                case CursorArrow.DEFAULT:
-                    Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-                    break;
-            }
-
-            currentCursor = newCursor;
-        }
-    }
-
-
-
-    private void HandleMouseDragInput()
-    {
-        if (Input.GetMouseButtonDown(2) && EventSystem.current.IsPointerOverGameObject() == false)
-        {
-            Plane plane = new Plane(Vector3.up, Vector3.zero);
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            float entry;
-
-            if (plane.Raycast(ray, out entry))
-            {
-                dragStartPosition = ray.GetPoint(entry);
-            }
-        }
-        if (Input.GetMouseButton(2) && EventSystem.current.IsPointerOverGameObject() == false)
-        {
-            Plane plane = new Plane(Vector3.up, Vector3.zero);
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            float entry;
-
-            if (plane.Raycast(ray, out entry))
-            {
-                dragCurrentPosition = ray.GetPoint(entry);
-
-                newPosition = transform.position + dragStartPosition - dragCurrentPosition;
-            }
-        }
-    }
+	void MouseEdgeScroll()
+	{
+		if (Input.mousePosition.x > _screenWidth - edgeBoundary)
+		{
+			_cameraPosition.x += mouseSpeed * Time.deltaTime;
+		}
+		if (Input.mousePosition.x < 0 + edgeBoundary)
+		{
+			_cameraPosition.x -= mouseSpeed * Time.deltaTime;
+		}
+		if (Input.mousePosition.y > _screenHeight - edgeBoundary)
+		{
+			_cameraPosition.z += mouseSpeed * Time.deltaTime;
+		}
+		if (Input.mousePosition.y < 0 + edgeBoundary)
+		{
+			_cameraPosition.z -= mouseSpeed * Time.deltaTime;
+		}
+	}
+	void CheckCameraPosition()
+	{
+		_cameraPosition.x = Mathf.Clamp(_cameraPosition.x, _mapBounds.x + mapBoundsOffsetLeft, _mapBounds.y - mapBoundsOffsetRight);
+		_cameraPosition.z = Mathf.Clamp(_cameraPosition.z, _mapBounds.x + mapBoundsOffsetBottom, _mapBounds.y - mapBoundsOffsetTop);
+	}
 }
 
