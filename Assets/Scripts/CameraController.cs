@@ -9,11 +9,17 @@ public class RTSCameraController : MonoBehaviour
 	private Vector2 _dragOrigin;
 	private bool isDragging;
 	private Vector3 _cameraPosition;
+	[Header("Map Boundaries")]
+	public Vector2 _mapBounds = new Vector2(-50,50);
+	public int mapBoundsOffsetLeft = 30;
+	public int mapBoundsOffsetRight = 40;
+	public int mapBoundsOffsetTop = 40;
+	public int mapBoundsOffsetBottom = 40;
 	[Header("Camera Settings")]
 	public float cameraSpeed = 20;
 	public int mouseSpeed = 20;
 	public float dragSpeed = 20;
-	public float screenBoundary = 50;
+	public float edgeBoundary = 50;
 	private int _screenHeight;
 	private int _screenWidth;
 
@@ -32,7 +38,6 @@ private void DragMovement()
 			isDragging = true;
 
 			_dragOrigin = Input.mousePosition;
-			Debug.Log(_dragOrigin);
 		}
 		else
 		{	
@@ -64,7 +69,8 @@ private void DragMovement()
 			// Edge Scrolling with Mouse
 			MouseEdgeScroll();	
 		}
-		this.transform.position = _cameraPosition;
+			CheckCameraPosition();
+			this.transform.position = _cameraPosition;
 	}
 
 	void KeyboardMovement()
@@ -89,22 +95,27 @@ private void DragMovement()
 
 	void MouseEdgeScroll()
 	{
-		if (Input.mousePosition.x > _screenWidth - screenBoundary)
+		if (Input.mousePosition.x > _screenWidth - edgeBoundary)
 		{
 			_cameraPosition.x += mouseSpeed * Time.deltaTime;
 		}
-		if (Input.mousePosition.x < 0 + screenBoundary)
+		if (Input.mousePosition.x < 0 + edgeBoundary)
 		{
 			_cameraPosition.x -= mouseSpeed * Time.deltaTime;
 		}
-		if (Input.mousePosition.y > _screenHeight - screenBoundary)
+		if (Input.mousePosition.y > _screenHeight - edgeBoundary)
 		{
 			_cameraPosition.z += mouseSpeed * Time.deltaTime;
 		}
-		if (Input.mousePosition.y < 0 + screenBoundary)
+		if (Input.mousePosition.y < 0 + edgeBoundary)
 		{
 			_cameraPosition.z -= mouseSpeed * Time.deltaTime;
 		}
+	}
+	void CheckCameraPosition()
+	{
+		_cameraPosition.x = Mathf.Clamp(_cameraPosition.x, _mapBounds.x + mapBoundsOffsetLeft, _mapBounds.y - mapBoundsOffsetRight);
+		_cameraPosition.z = Mathf.Clamp(_cameraPosition.z, _mapBounds.x + mapBoundsOffsetBottom, _mapBounds.y - mapBoundsOffsetTop);
 	}
 }
 
