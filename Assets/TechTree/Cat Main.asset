@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d67172b077ba0453abbc8bd22da010bd, type: 3}
+  m_Name: Cat Main
+  m_EditorClassIdentifier: Assembly-CSharp::TechTreeNode
+  <Name>k__BackingField: Main
+  <Unlocked>k__BackingField: 0
+  <Nodes>k__BackingField:
+  - {fileID: 11400000, guid: 26f18fe154a474aaeacdee16a1e1b02a, type: 2}
+  <Production>k__BackingField:
+  - {fileID: 11400000, guid: 26f18fe154a474aaeacdee16a1e1b02a, type: 2}
+  - {fileID: 11400000, guid: e2dfb1cbc4ff14c3e8267c4d7d2f4987, type: 2}
+  <Icon>k__BackingField: {fileID: 21300000, guid: e7385c27af3e9524cb23f253deb07d74, type: 3}
+  <BuildTime>k__BackingField: 1
+  <Prefab>k__BackingField: {fileID: 22458167468652914, guid: 4f21d6f0168304b20a95d7d7d4eb7d8c, type: 3}
+  <UnitStat>k__BackingField: {fileID: 11400000, guid: 229b83ca2c9f840088bc7022c99436e6, type: 2}
+  <Category>k__BackingField: 1

@@ -22,4 +22,4 @@ MonoBehaviour:
   <Size>k__BackingField: {x: 15, y: 15}
   <MovementSpeed>k__BackingField: 0
   <Acceleration>k__BackingField: 0
-  <Cost>k__BackingField: 2500
+  <Cost>k__BackingField: 100

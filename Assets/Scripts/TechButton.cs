@@ -1,12 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
-public class TechButton : MonoBehaviour
+public class TechButton : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Image icon;
+    [SerializeField] private Image progressBar;
+    [SerializeField] private Image highlight;
+
+    public UnityEvent<TechButton, TechTreeNode> onLeftClick = new ();
+    public UnityEvent<TechButton, TechTreeNode> onRightClick = new ();
     
     private readonly HashSet<Building> _buildings = new ();
     private TechTreeNode _node;
@@ -15,11 +22,20 @@ public class TechButton : MonoBehaviour
     public event OnTechHandler OnTechLost;
     public event OnTechHandler OnTechAcquired;
     
+    /// Is the tech unlocked
     public bool IsUnlocked { get; private set; }
+    /// Is the tech constructable from a building
     public bool IsConstructable { get; set; }
+    // The set that keeps track the amount of production buildings are present of this tech
+    public HashSet<Building> Buildings => _buildings;
+    // The set that refers to the required production buildings for producing this tech
+    public HashSet<Building> RefToBuildings { get; set; }
 
     private void Awake()
     {
+        progressBar.enabled = false;
+        highlight.enabled = false;
+        
         Building.OnBuildingConstructed += AddBuilding;
         Building.OnBuildingDestroyed += RemoveBuilding;
     }
@@ -62,16 +78,41 @@ public class TechButton : MonoBehaviour
         }
     }
 
+    /// Unlock the tech within the production building
     public void Unlock()
     {
         IsUnlocked = true;
     }
 
-    public void Produce()
+    public void StartProgress(TechTreeNode node)
     {
-        foreach (var building in _buildings)
+        progressBar.enabled = true;
+        progressBar.fillAmount = 1.0f;
+    }
+
+    public void Progress(TechTreeNode node, float progress)
+    {
+        if (node != _node)
+            return;
+        
+        progressBar.fillAmount = Mathf.Max(0.0f, 1.0f - progress);
+        if (progress >= 1.0f)
         {
-            building.Produce(_node.Prefab);
+            highlight.enabled = true;
         }
+    }
+
+    public void EndProgress(TechTreeNode node)
+    {
+        progressBar.enabled = false;
+        highlight.enabled = false;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+            onLeftClick.Invoke(this, _node);
+        else if (eventData.button == PointerEventData.InputButton.Right)
+            onRightClick.Invoke(this, _node);
     }
 }

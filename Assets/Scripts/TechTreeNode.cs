@@ -11,6 +11,7 @@ public class TechTreeNode : ScriptableObject
     [field: SerializeField] public Sprite Icon { get; private set; } = null;
     [field: SerializeField] public float BuildTime { get; private set; } = 1.0f;
     [field: SerializeField] public GameObject Prefab { get; private set; }
+    [field: SerializeField] public UnitTemplate UnitStat { get; private set; }
     [field: SerializeField] public Category Category { get; private set; }
 }
 

@@ -216,8 +216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5eb460a13ec34240a18b9edd36e395f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unit
-  navMeshAgent: {fileID: 7876058039873720108}
-  animator: {fileID: 6321035953844210822}
 --- !u!95 &6321035953844210822
 Animator:
   serializedVersion: 7
@@ -228,7 +226,7 @@ Animator:
   m_GameObject: {fileID: 1195619059197218442}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7c4232c6f2957413d860846107c4ee1c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
