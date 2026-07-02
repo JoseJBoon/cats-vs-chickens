@@ -18,21 +18,5 @@ public class Building : MonoBehaviour
     {
         OnBuildingDestroyed?.Invoke(this, node);
     }
-
-    public void Initialize(TechTreeNode techNode)
-    {
-        node = techNode;
-    }
-
-    public void Produce(GameObject tech)
-    {
-        if (tech)
-        {
-            Debug.Log($"Produce {tech.name}");
-        }
-        else
-        {
-            Debug.Log($"Produce WHAT???");
-        }
-    }
+    
 }
