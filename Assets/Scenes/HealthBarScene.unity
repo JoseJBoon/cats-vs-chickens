@@ -713,7 +713,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   healthBar: {fileID: 1069409658}
   healthBarContainer: {fileID: 1494501600}
-  <CurrentHealth>k__BackingField: 90
+  <CurrentHealth>k__BackingField: 43.4
   <MaxHealth>k__BackingField: 100
 --- !u!33 &1631923829
 MeshFilter:
@@ -962,7 +962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   healthBar: {fileID: 1506483092}
   healthBarContainer: {fileID: 755151098}
-  <CurrentHealth>k__BackingField: 90
+  <CurrentHealth>k__BackingField: 100
   <MaxHealth>k__BackingField: 100
 --- !u!33 &1707707586
 MeshFilter:
