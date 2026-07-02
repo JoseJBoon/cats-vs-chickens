@@ -14,8 +14,8 @@ public class Placement : MonoBehaviour
     private SpaceChecker _spaceChecker;
     private Transform _buildingPrefab;
 
-    public OnPlacementHandler OnBuildingPlaced;
-    public OnPlacementHandler OnBuildingCancel;
+    public event OnPlacementHandler OnBuildingPlaced;
+    public event OnPlacementHandler OnBuildingCancel;
     
     private void Start()
     {
@@ -57,7 +57,7 @@ public class Placement : MonoBehaviour
         _cursor.position = SnapPosition(hitInfo.point);
     }
 
-    private Vector3 SnapPosition(Vector3 position)
+    private static Vector3 SnapPosition(Vector3 position)
     {
         position.x = Mathf.Floor(position.x) + .5f;
         position.z = Mathf.Floor(position.z) + .5f;
@@ -75,12 +75,15 @@ public class Placement : MonoBehaviour
     {
         var instance = Instantiate(_buildingPrefab);
         instance.position = SnapPosition(_cursor.position);
+        _buildingPrefab = null;
+        boxHighLight.gameObject.SetActive(false);
         OnBuildingPlaced?.Invoke();
     }
 
     private void CancelBuilding()
     {
         boxHighLight.gameObject.SetActive(false);
+        _buildingPrefab = null;
         OnBuildingCancel?.Invoke();
     }
 }

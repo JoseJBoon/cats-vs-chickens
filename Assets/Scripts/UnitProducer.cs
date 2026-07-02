@@ -60,10 +60,16 @@ public class UnitProducer : MonoBehaviour
         if (_unitProduction.Count == 0)
             return;
         
-        resourceCount += _unitProduction[0].Cost;
+        RefundUnit(_unitProduction[0]);
         _unitProduction.RemoveAt(0);
         if (_unitProduction.Count == 0)
             enabled = false;
+        UpdateText();
+    }
+
+    public void RefundUnit(Unit unit)
+    {
+        resourceCount += unit.Cost;
         UpdateText();
     }
 
@@ -80,6 +86,13 @@ public class UnitProducer : MonoBehaviour
         }
 
         return null;
+    }
+
+    public float CurrentUnitProgress()
+    {
+        if (_unitProduction.Count == 0)
+            return 1.0f;
+        return _unitProduction[0].Cost / _unitProduction[0].TotalCost;
     }
     
     public class Unit

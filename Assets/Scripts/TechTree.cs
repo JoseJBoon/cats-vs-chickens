@@ -69,6 +69,10 @@ public class TechTree : MonoBehaviour
                 instance.transform.SetParent(buildingsPanel);
                 instance.onLeftClick.AddListener(buildBuilding.OnBuildAction);
                 instance.onRightClick.AddListener(buildBuilding.OnCancelBuildAction);
+
+                buildBuilding.OnBuildStart += instance.StartProgress;
+                buildBuilding.OnBuildProgress += instance.Progress;
+                buildBuilding.OnBuildComplete += instance.EndProgress;
                 break;
             case Category.Research:
                 instance.transform.SetParent(techsPanel);
